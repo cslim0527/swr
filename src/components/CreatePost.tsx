@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-import { mutate } from "swr";
 import { IPost } from "@libs/types";
 
 const CreatePost = ({ mutate }) => {
