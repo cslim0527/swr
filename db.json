@@ -44,6 +44,11 @@
       "id": 763,
       "content": "1323213213213213",
       "createdAt": 1665780949870
+    },
+    {
+      "id": 777,
+      "content": "new post",
+      "createdAt": 1665780949880
     }
   ],
   "comments": [
