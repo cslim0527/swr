@@ -17,14 +17,17 @@ export default function Home() {
     getPosts();
   }, []);*/
 
-  const { data: posts, error } = useSWR<IPost[]>(
-    "/posts?_sort=createdAt&_order=desc"
-  );
+  const {
+    data: posts,
+    error,
+    mutate,
+  } = useSWR<IPost[]>("/posts?_sort=createdAt&_order=desc");
 
+  console.log("[posts]", posts);
   return (
     <div>
       <h4>useSWR Hook ⛳</h4>
-      {/*<CreatePost setPosts={setPosts} />*/}
+      <CreatePost mutate={mutate} />
 
       <h4>Posts</h4>
 

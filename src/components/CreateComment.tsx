@@ -1,9 +1,41 @@
 import { useState } from "react";
+import { IComment } from "@libs/types";
+import axios from "axios";
+import { mutate } from "swr";
 
-const CreateComment = () => {
+const CreateComment = ({ postId }) => {
   const [comment, setComment] = useState("");
 
-  const handleSubmit = async (e) => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const id = Math.floor(Math.random() * 1000);
+
+    const FAKE_DATA = {
+      id,
+      content: comment,
+      createdAt: Date.now(),
+      clientOnly: true,
+    };
+
+    mutate(
+      `/posts/${postId}/comments?_sort=createdAt&_order=desc`,
+      (comments: IComment[]) => [FAKE_DATA, ...comments],
+      false
+    );
+    setComment("");
+
+    await axios({
+      method: "POST",
+      url: `/posts/${postId}/comments`,
+      data: {
+        id,
+        content: comment,
+        createdAt: Date.now(),
+      },
+    });
+
+    mutate(`/posts/${postId}/comments?_sort=createdAt&_order=desc`);
+  };
 
   return (
     <form onSubmit={handleSubmit} className="mx-auto w-50">
