@@ -53,7 +53,7 @@ const index = () => {
       {!posts[postIndex] && <Loader />}
       {posts[postIndex] && <PostCard data={posts[postIndex]} />}
 
-      <CreateComment />
+      <CreateComment postId={postId} />
 
       {!comments && <Loader />}
 
