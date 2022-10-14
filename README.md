@@ -13,3 +13,9 @@ useSWR hook을 사용한 데이터 패칭으로 해결 할 수 있는 문제
 - 서버 응답으로 받은 데이터를 캐싱하여 로딩 없이 화면을 출력 할 수 있다.
 - Global Level 수준의 캐싱이 가능하다.
 - ReFocus, ReConnection에 대한 화면 업데이트가 가능하다.
+
+---
+
+### Step-3
+Otimistic UI -> mutate를 사용한 낙관적 업데이트
+클라이언트단에 화면변화를 바로 적용하고 이후 실제 데이터 요청을 통해 revalidate 한 결과를 반영하도록 하는 방법
