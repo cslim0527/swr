@@ -14,6 +14,36 @@
       "id": 3,
       "content": "This is a post with id 3",
       "createdAt": 1625745022490
+    },
+    {
+      "id": 625,
+      "content": "ramdom post",
+      "createdAt": 1665780701930
+    },
+    {
+      "id": 697,
+      "content": "adasdasd",
+      "createdAt": 1665780808074
+    },
+    {
+      "id": 104,
+      "content": "sdadasd",
+      "createdAt": 1665780817961
+    },
+    {
+      "id": 444,
+      "content": "1zzz",
+      "createdAt": 1665780823280
+    },
+    {
+      "id": 658,
+      "content": "121321312312312312312312312",
+      "createdAt": 1665780891373
+    },
+    {
+      "id": 763,
+      "content": "1323213213213213",
+      "createdAt": 1665780949870
     }
   ],
   "comments": [
@@ -26,8 +56,8 @@
     {
       "id": 3,
       "content": "This is a comment of post 1",
-      "postId": 1
-      ,"createdAt": 1625745022490
+      "postId": 1,
+      "createdAt": 1625745022490
     },
     {
       "id": 2,
