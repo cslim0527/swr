@@ -19,3 +19,8 @@ useSWR hook을 사용한 데이터 패칭으로 해결 할 수 있는 문제
 ### Step-3
 Otimistic UI -> mutate를 사용한 낙관적 업데이트
 클라이언트단에 화면변화를 바로 적용하고 이후 실제 데이터 요청을 통해 revalidate 한 결과를 반영하도록 하는 방법
+
+---
+
+### Step-4
+useInfiniteSWR을 활용한 무한스크롤
