@@ -2,8 +2,12 @@ import CreatePost from "@components/CreatePost";
 import PostCard from "@components/PostCard";
 import Loader from "@components/Loader";
 import useSWR from "swr";
+import useSWRInfinite from "swr/infinite";
 import axios from "axios";
 import { IPost } from "@libs/types";
+import { usePagination } from "@libs/hook";
+import InfiniteScroll from "react-infinite-scroll-component";
+import CommentCard from "@components/CommentCard";
 
 export default function Home() {
   /* const [posts, setPosts] = useState<IPost[]>(null);
@@ -17,13 +21,21 @@ export default function Home() {
     getPosts();
   }, []);*/
 
+  // const {
+  //   data: posts,
+  //   error,
+  //   mutate,
+  // } = useSWR<IPost[]>("/posts?_sort=createdAt&_order=desc");
   const {
-    data: posts,
+    paginatedData,
     error,
+    size,
+    setSize,
+    isReachedEnd,
+    loadingMore,
     mutate,
-  } = useSWR<IPost[]>("/posts?_sort=createdAt&_order=desc");
+  } = usePagination<IPost>("/posts?_sort=createdAt&_order=desc");
 
-  console.log("[posts]", posts);
   return (
     <div>
       <h4>useSWR Hook ⛳</h4>
@@ -32,10 +44,18 @@ export default function Home() {
       <h4>Posts</h4>
 
       {error && <p>Something is wrong!</p>}
-      {!posts && <Loader />}
-      {posts?.map((post) => (
-        <PostCard key={post.id} data={post} />
-      ))}
+
+      <InfiniteScroll
+        next={() => setSize(size + 1)}
+        hasMore={!isReachedEnd}
+        loader={<Loader />}
+        endMessage={<p>불러올 정보가 없습니다.</p>}
+        dataLength={paginatedData?.length ?? 0}
+      >
+        {paginatedData?.map((post) => (
+          <PostCard key={post.id} data={post} />
+        ))}
+      </InfiniteScroll>
     </div>
   );
 }

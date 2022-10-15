@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { IComment, IPost } from "@libs/types";
 import Loader from "@components/Loader";
 import useSWR from "swr";
+import { usePagination } from "@libs/hook";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const index = () => {
   const {
@@ -42,7 +44,19 @@ const index = () => {
     }
   );
 
-  const { data: comments, error: commentsError } = useSWR<IComment[]>(
+  // const { data: comments, error: commentsError } = useSWR<IComment[]>(
+  //   `/posts/${postId}/comments?_sort=createdAt&_order=desc`
+  // );
+
+  const {
+    paginatedData,
+    error,
+    size,
+    setSize,
+    isReachedEnd,
+    loadingMore,
+    mutate,
+  } = usePagination<IComment>(
     `/posts/${postId}/comments?_sort=createdAt&_order=desc`
   );
 
@@ -55,12 +69,21 @@ const index = () => {
 
       <CreateComment postId={postId} />
 
-      {!comments && <Loader />}
+      {!paginatedData && <Loader />}
 
       <h4>Comments</h4>
-      {comments?.map((comment) => (
-        <CommentCard key={comment.id} data={comment} />
-      ))}
+
+      <InfiniteScroll
+        next={() => setSize(size + 1)}
+        hasMore={!isReachedEnd}
+        loader={<Loader />}
+        endMessage={<p>불러올 정보가 없습니다.</p>}
+        dataLength={paginatedData?.length ?? 0}
+      >
+        {paginatedData?.map((comment) => (
+          <CommentCard key={comment.id} data={comment} />
+        ))}
+      </InfiniteScroll>
     </div>
   );
 };
